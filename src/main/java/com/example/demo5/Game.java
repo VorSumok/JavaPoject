@@ -8,6 +8,10 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.event.ActionEvent;
+import javafx.scene.layout.Pane;
 
 import java.util.ArrayList;
 
@@ -20,16 +24,20 @@ public class Game implements Initializable {
     AnimationTimer gameLoop;
 
     @FXML
+    private Pane EndGameWindow;
+
+    @FXML
     private AnchorPane Plane;
 
 
     @FXML
     private Rectangle PlayerModel;
 
+    @FXML
+    private Label ScorePanel;
 
     @FXML
     private Text Score;
-
 
     boolean leftPressed = false;
     boolean rightPressed = false;
@@ -40,6 +48,19 @@ public class Game implements Initializable {
     ArrayList<Platform> PlatformMap = new ArrayList<>();
     public double score;
     double pDelta = 0.005;
+
+
+
+
+    @FXML
+    void ClickExit(ActionEvent event) {
+
+    }
+
+    @FXML
+    void ClickRestart(ActionEvent event) {
+        ResetGame();
+    }
 
     @FXML
     void PressedButton(KeyEvent event) {
@@ -99,7 +120,7 @@ public class Game implements Initializable {
         if (leftPressed){PlayerComponent.moveLeft();}
 
         if(PlayerComponent.isPlayerDead(Plane)){
-            PlayerComponent.resetPlayer();
+            EndGameMenu();
         }
     }
 
@@ -112,10 +133,24 @@ public class Game implements Initializable {
         PlatformMap.add(platformControler.createPlatfhorm(90, 500));
         PlatformMap.add(platformControler.createPlatfhorm(200, 100));
         score = 0;
+        Plane.requestFocus();
     }
 
+    private void EndGameMenu(){
+        ScorePanel.setText(String.valueOf((int)score));
+        EndGameWindow.setVisible(true);
+        EndGameWindow.toFront();
+    }
 
-
+    private void ResetGame()
+    {
+        platformControler.removeAll(PlatformMap);
+        EndGameWindow.setVisible(false);
+        EndGameWindow.toBack();
+        PlayerComponent.resetPlayer();
+        PlatformMap.clear();
+        load();
+    }
     private void screnMove(){
         for (Platform platform: PlatformMap){platformControler.movePlatform(platform, 0,(Plane.getHeight() - (PlayerModel.getY()+PlayerModel.getLayoutY()))*pDelta);}
         PlayerComponent.setPlayer(0,(Plane.getHeight() - (PlayerModel.getY()+PlayerModel.getLayoutY()))*pDelta);

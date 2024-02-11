@@ -55,7 +55,9 @@ public class PlayerModel {
 
     public void resetPlayer(){
         PlayerModel.setY(0);
+        PlayerModel.setX(0);
         ImpulseY = 0;
+        ImpulseX = 0;
     }
 
     private void PlayerTeleport()

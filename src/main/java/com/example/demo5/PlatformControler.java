@@ -75,7 +75,7 @@ public class PlatformControler {
     }
     public void removeAll (ArrayList<Platform>  OutOfScreen){
         ArrayList<Rectangle> RectangelMass = new ArrayList<>();
-        for (Platform platform1 : OutOfScreen){RectangelMass.add(platform1.getPlatform());}
+            for (Platform platform1 : OutOfScreen){RectangelMass.add(platform1.getPlatform());}
         plane.getChildren().removeAll(RectangelMass);
     }
     public void movePlatform(Platform platform,double moveX, double moveY)
