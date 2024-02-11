@@ -25,7 +25,7 @@ public class HelloController implements Initializable {
     @FXML
     private Rectangle PlayerModel;
 
-
+    public double score;
     boolean leftPressed = false;
     boolean rightPressed = false;
     private PlatformControler platformControler;
@@ -78,15 +78,17 @@ public class HelloController implements Initializable {
         load();
     }
 
-
+    int Timer = 0;
 
     //Called every game frame
     private void update() {
-
         PlayerComponent.PlayerUpdate();
-        //platformGenerater(1);
-
-        if ((PlayerModel.getY()+PlayerModel.getLayoutY() <= 300)&&( PlatformMap.get(PlatformMap.size()-1).getY() <= 300 )){PlatformMove();}
+        //System.out.println((int) score);
+        if ((int)score % 5 == 1){
+            System.out.println("Create");
+            platformGenerater((int)getRandomNumber(1, 3));}
+        platformRemove();
+        if ((PlayerModel.getY()+PlayerModel.getLayoutY() <= 300)&&( PlatformMap.get(PlatformMap.size()-1).getY() <= 300 )){screnMove();}
         if (collision.checkPlayerCollisionDetection(PlatformMap,PlayerComponent)){PlayerComponent.jump();}
         if (rightPressed){PlayerComponent.moveRight();}
         if (leftPressed){PlayerComponent.moveLeft();}
@@ -104,21 +106,48 @@ public class HelloController implements Initializable {
         PlatformMap.add(platformControler.createPlatfhorm(300, 700));
         PlatformMap.add(platformControler.createPlatfhorm(90, 500));
         PlatformMap.add(platformControler.createPlatfhorm(200, 100));
+        platformGenerater(5);
+        score = 0;
     }
 
 
     private void platformGenerater(int count){
+        boolean badGeneration;
+        Rectangle newPlatform;
         for (int i = 1; i <= count; i++) {
-            PlatformMap.add(platformControler.createPlatfhorm(getRandomNumber(20,500),getRandomNumber(-100,-10)));
+            do {
+                badGeneration = false;
+                newPlatform = platformControler.createPlatfhorm(getRandomNumber(20, 500), getRandomNumber(-100, -10));
+                for (Rectangle platform : PlatformMap) {
+                    if(collision.CollisionDetection(platform, newPlatform) || (platformControler.distance(platform,newPlatform) < 30)){
+                        badGeneration = true;
+                        platformControler.remove(newPlatform);
+                        break;
+                        }
+                    }
+                } while (badGeneration);
+                PlatformMap.add(newPlatform);
+            }
         }
-    }
+
 
     public double getRandomNumber(double min, double max){
         return (Math.random() * (max - min)) + min;
     }
 
-    private void PlatformMove(){
+    private void screnMove(){
         for (Rectangle platform: PlatformMap){platformControler.movePlatform(platform, 0,(Plane.getHeight() - (PlayerModel.getY()+PlayerModel.getLayoutY()))*pDelta);}
+        PlayerComponent.setPlayer(0,(Plane.getHeight() - (PlayerModel.getY()+PlayerModel.getLayoutY()))*pDelta);
+        score += (Plane.getHeight() - (PlayerModel.getY()+PlayerModel.getLayoutY())*pDelta)/ 10000;
+    }
+    public void platformRemove()
+    {
+        for (Rectangle platform: PlatformMap){
+            if (platform.getY() > 500) {
+                platformControler.remove(platform);
+                PlatformMap.remove(platform);
+            }
+        }
     }
 }
 

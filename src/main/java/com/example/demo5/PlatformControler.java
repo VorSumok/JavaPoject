@@ -29,7 +29,9 @@ public class PlatformControler {
         plane.getChildren().add(Platform);
         return Platform;
     }
-
+    public void remove (Rectangle Platform){
+        plane.getChildren().remove(Platform);
+    }
 
     public void movePlatform(Rectangle Platform,double moveX, double moveY)
     {

@@ -42,7 +42,7 @@ public class PlayerModel {
         PlayerModel.setX(PlayerModel.getX() + ImpulseX * xDelta);
     }
 
-    public void setPlayer(double positionChangeY, double positionChangeX){
+    public void setPlayer(double positionChangeX, double positionChangeY){
         PlayerModel.setY(PlayerModel.getY() + positionChangeY);
         PlayerModel.setX(PlayerModel.getX() + positionChangeX);
     }
