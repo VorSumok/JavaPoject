@@ -8,7 +8,6 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.event.ActionEvent;
 import javafx.scene.layout.Pane;
@@ -148,7 +147,6 @@ public class Game implements Initializable {
         EndGameWindow.setVisible(false);
         EndGameWindow.toBack();
         PlayerComponent.resetPlayer();
-        PlatformMap.clear();
         load();
     }
     private void screnMove(){
