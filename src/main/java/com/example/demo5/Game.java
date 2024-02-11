@@ -15,7 +15,7 @@ import java.net.URL;
 import java.util.Random;
 import java.util.ResourceBundle;
 
-public class HelloController implements Initializable {
+public class Game implements Initializable {
 
     AnimationTimer gameLoop;
 
@@ -87,6 +87,7 @@ public class HelloController implements Initializable {
     private void update() {
 
         Score.setText(String.valueOf((int)score));
+
         PlayerComponent.PlayerUpdate();
         platformControler.removeOutOfscreen(PlatformMap);
         platformControler.platformGenerater(random.nextInt(3) + 1 ,PlatformMap, PlayerComponent);
@@ -107,7 +108,7 @@ public class HelloController implements Initializable {
 
     private void load(){
         System.out.println("Game starting");
-        PlatformMap.add(platformControler.createPlatfhorm(300, 700));
+        PlatformMap.add(platformControler.createPlatfhorm(200, 700));
         PlatformMap.add(platformControler.createPlatfhorm(90, 500));
         PlatformMap.add(platformControler.createPlatfhorm(200, 100));
         score = 0;

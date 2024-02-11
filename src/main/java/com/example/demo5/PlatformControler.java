@@ -21,8 +21,8 @@ public class PlatformControler {
 
     public Platform createPlatfhorm(double PosX, double PosY)
     {
-        int Wight = 100;
-        int Height = 20;
+        int Wight = 50;
+        int Height = 10;
         Platform Platform = new Platform(new Rectangle(PosX, PosY, Wight, Height));
         Platform.getPlatform().setFill(Color.web("#87F03C"));
         Platform.getPlatform().setStroke(Color.web(("#0B0B0A")));
@@ -35,17 +35,13 @@ public class PlatformControler {
         boolean badGeneration;
         Platform newPlatform;
         Platform PlayerOnPlatform = collision.GetPlayerOnPlatform(PlatformMap, Player);
-        System.out.println("1");
         if (PlayerOnPlatform != null){
-            System.out.println("4");
             if (!PlayerOnPlatform.WasUsed) {
-                System.out.println("2");
                 PlayerOnPlatform.WasUsed = true;
-                System.out.println("3");
                 for (int i = 1; i <= count; i++) {
                     do {
                         badGeneration = false;
-                        newPlatform = createPlatfhorm(getRandomNumber(20, 450), getRandomNumber(-170, -10));
+                        newPlatform = createPlatfhorm(getRandomNumber(20, 370), getRandomNumber(-150, -10));
                         for (Platform platform : PlatformMap) {
                             if (collision.CollisionDetection(platform, newPlatform) || (distance(platform, newPlatform) < 30)) {
                                 badGeneration = true;
@@ -67,7 +63,7 @@ public class PlatformControler {
     {
         ArrayList<Platform> OutOfScreen = new ArrayList<>();
         for (Platform platform: PlatformMap){
-            if (platform.getPlatform().getY() > 750) {
+            if (platform.getPlatform().getY() > 800) {
                 OutOfScreen.add(platform);
             }
         }

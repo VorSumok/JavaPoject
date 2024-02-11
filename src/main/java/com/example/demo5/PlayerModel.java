@@ -58,11 +58,18 @@ public class PlayerModel {
         ImpulseY = 0;
     }
 
+    private void PlayerTeleport()
+    {
+        System.out.println(400-PlayerModel.getLayoutX());
+     if (PlayerModel.getX()+PlayerModel.getLayoutX()+PlayerModel.getWidth()/2 < -10){PlayerModel.setX(400-PlayerModel.getLayoutX()-PlayerModel.getWidth()/2);}
+     if (PlayerModel.getX()+PlayerModel.getLayoutX()+PlayerModel.getWidth()/2 > 410){PlayerModel.setX(0-PlayerModel.getLayoutX()-PlayerModel.getWidth()/2);}
+    }
+
     public void PlayerUpdate(){
 
     ImpulseY = ImpulseY + 3;
     if (ImpulseX > 0){ImpulseX = ImpulseX-2;} else if (ImpulseX < 0) { ImpulseX = ImpulseX+2;}
-
+    PlayerTeleport();
     movePlayer();
     }
 }
