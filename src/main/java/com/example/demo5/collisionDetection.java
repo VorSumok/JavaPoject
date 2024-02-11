@@ -7,19 +7,27 @@ import java.util.ArrayList;
 public class collisionDetection {
 
 
-    public boolean playerCollisionDetection(Rectangle platform, PlayerModel Player) {
+    private boolean playerCollisionDetection(Rectangle platform, PlayerModel Player) {
 
         return (intersectionY (platform, Player.getPlayerModel()) && intersectionX(platform, Player.getPlayerModel()) && (Player.getImpulseY() > 0));
     }
-    public boolean checkPlayerCollisionDetection(ArrayList<Rectangle> PlatformMap, PlayerModel Player){
-        for (Rectangle platform: PlatformMap){
-            if (playerCollisionDetection(platform, Player)){
+    public boolean checkPlayerCollisionDetection(ArrayList<Platform> PlatformMap, PlayerModel Player){
+        for (Platform platform: PlatformMap){
+            if (playerCollisionDetection(platform.getPlatform(), Player)){
                 return true;}
         }
         return false;
     }
-    public boolean CollisionDetection(Rectangle platform1, Rectangle platform2){
-        return (platform1.getBoundsInParent().intersects(platform2.getBoundsInParent()));
+
+    public Platform GetPlayerOnPlatform(ArrayList<Platform> PlatformMap, PlayerModel Player){
+        for (Platform platform: PlatformMap){
+            if (playerCollisionDetection(platform.getPlatform(), Player)){
+                return platform;}
+        }
+        return null;
+    }
+    public boolean CollisionDetection(Platform platform1, Platform platform2){
+        return (platform1.getPlatform().getBoundsInParent().intersects(platform2.getPlatform().getBoundsInParent()));
     }
     private boolean intersectionY (Rectangle Platform, Rectangle PlayerModel){
 
